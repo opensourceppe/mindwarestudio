@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindWare Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">MindWare reboot prototype</p>
+          <h1>Visual machine learning workflows for the modern web.</h1>
+          <p class="lede">
+            This reboot turns the original MindWare concept into a visual studio
+            with drag-and-drop pipeline design and an XR-ready spatial interface.
+          </p>
+        </div>
+        <div class="hero-card">
+          <p>Original project</p>
+          <a href="https://github.com/thomas-young-2013/mindware">
+            thomas-young-2013/mindware
+          </a>
+          <p class="license-note">Current reboot license: MIT (matching the original repository)</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Drag-and-drop studio</p>
+            <h2>Compose a pipeline visually</h2>
+          </div>
+          <div class="actions">
+            <button id="summarize-button" type="button">Summarize pipeline</button>
+            <button id="reset-button" type="button" class="ghost">Reset</button>
+          </div>
+        </div>
+
+        <div class="studio-grid">
+          <aside class="palette">
+            <h3>Block palette</h3>
+            <p>Drag any block into a workflow stage.</p>
+            <div class="block-list">
+              <button class="block" draggable="true" data-block="Dataset">Dataset</button>
+              <button class="block" draggable="true" data-block="Clean Data">Clean Data</button>
+              <button class="block" draggable="true" data-block="Feature Builder">Feature Builder</button>
+              <button class="block" draggable="true" data-block="Train Model">Train Model</button>
+              <button class="block" draggable="true" data-block="Evaluate">Evaluate</button>
+              <button class="block" draggable="true" data-block="Deploy">Deploy</button>
+            </div>
+          </aside>
+
+          <div class="workflow">
+            <div class="lane" data-stage="Ingest">
+              <h3>Ingest</h3>
+              <div class="dropzone" aria-label="Ingest stage"></div>
+            </div>
+            <div class="lane" data-stage="Transform">
+              <h3>Transform</h3>
+              <div class="dropzone" aria-label="Transform stage"></div>
+            </div>
+            <div class="lane" data-stage="Model">
+              <h3>Model</h3>
+              <div class="dropzone" aria-label="Model stage"></div>
+            </div>
+            <div class="lane" data-stage="Ship">
+              <h3>Ship</h3>
+              <div class="dropzone" aria-label="Ship stage"></div>
+            </div>
+          </div>
+        </div>
+
+        <output id="pipeline-summary" class="summary" aria-live="polite">
+          Start by dragging a block into the workflow.
+        </output>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">VR lab</p>
+            <h2>Explore the pipeline in a spatial interface</h2>
+          </div>
+          <button id="vr-check-button" type="button">Check WebXR readiness</button>
+        </div>
+
+        <div class="vr-layout">
+          <div class="vr-scene-shell">
+            <div id="vr-scene" class="vr-scene" aria-label="Spatial workflow preview">
+              <div class="vr-card depth-1">Dataset Hub</div>
+              <div class="vr-card depth-2">Feature Forge</div>
+              <div class="vr-card depth-3">Model Arena</div>
+              <div class="vr-card depth-4">Deployment Gate</div>
+            </div>
+          </div>
+
+          <div class="vr-copy">
+            <p>
+              Move your pointer over the scene to inspect a desktop-friendly spatial
+              preview. On XR-capable devices, MindWare Studio can detect WebXR
+              immersive VR support and use that as the next step for a deeper
+              experience.
+            </p>
+            <output id="vr-status" class="summary" aria-live="polite">
+              WebXR support has not been checked yet.
+            </output>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
