@@ -21,6 +21,8 @@ const setSelectedBlock = (label) => {
   });
 };
 
+const getWorkflowZones = () => [...document.querySelectorAll(".lane .dropzone")];
+
 const updateSummary = () => {
   const stages = [...document.querySelectorAll(".lane")].map((lane) => {
     const stage = lane.dataset.stage;
@@ -40,6 +42,20 @@ const updateSummary = () => {
     .join(" • ");
 };
 
+const moveWorkflowBlock = (block, direction) => {
+  const currentZone = block.parentElement;
+  const zones = getWorkflowZones();
+  const currentIndex = zones.indexOf(currentZone);
+  const targetZone = zones[currentIndex + direction];
+
+  if (!targetZone) {
+    return;
+  }
+
+  targetZone.append(block);
+  updateSummary();
+};
+
 const createWorkflowBlock = (label) => {
   const block = document.createElement("div");
   block.className = "workflow-block";
@@ -47,6 +63,21 @@ const createWorkflowBlock = (label) => {
   const text = document.createElement("span");
   text.className = "workflow-block-label";
   text.textContent = label;
+
+  const controls = document.createElement("div");
+  controls.className = "workflow-block-controls";
+
+  const moveLeftButton = document.createElement("button");
+  moveLeftButton.type = "button";
+  moveLeftButton.setAttribute("aria-label", `Move ${label} to the previous stage`);
+  moveLeftButton.textContent = "←";
+  moveLeftButton.addEventListener("click", () => moveWorkflowBlock(block, -1));
+
+  const moveRightButton = document.createElement("button");
+  moveRightButton.type = "button";
+  moveRightButton.setAttribute("aria-label", `Move ${label} to the next stage`);
+  moveRightButton.textContent = "→";
+  moveRightButton.addEventListener("click", () => moveWorkflowBlock(block, 1));
 
   const removeButton = document.createElement("button");
   removeButton.type = "button";
@@ -57,7 +88,8 @@ const createWorkflowBlock = (label) => {
     updateSummary();
   });
 
-  block.append(text, removeButton);
+  controls.append(moveLeftButton, moveRightButton, removeButton);
+  block.append(text, controls);
   return block;
 };
 

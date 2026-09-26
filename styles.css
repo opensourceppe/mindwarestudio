@@ -214,6 +214,11 @@ button {
   gap: 0.75rem;
 }
 
+.workflow-block-controls {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
 .workflow-block button {
   border: 0;
   background: transparent;
