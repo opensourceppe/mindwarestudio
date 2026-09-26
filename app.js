@@ -6,8 +6,18 @@ const resetButton = document.getElementById("reset-button");
 const vrCheckButton = document.getElementById("vr-check-button");
 const vrStatus = document.getElementById("vr-status");
 const vrScene = document.getElementById("vr-scene");
+let selectedBlock = "";
 
 let draggedBlock = "";
+
+const setSelectedBlock = (label) => {
+  selectedBlock = label;
+
+  paletteBlocks.forEach((block) => {
+    const isSelected = (block.dataset.block || "") === label;
+    block.setAttribute("aria-pressed", String(isSelected));
+  });
+};
 
 const updateSummary = () => {
   const stages = [...document.querySelectorAll(".lane")].map((lane) => {
@@ -50,14 +60,37 @@ const createWorkflowBlock = (label) => {
 };
 
 paletteBlocks.forEach((block) => {
+  block.addEventListener("click", () => {
+    const label = block.dataset.block || "";
+    setSelectedBlock(selectedBlock === label ? "" : label);
+  });
+
   block.addEventListener("dragstart", (event) => {
     draggedBlock = block.dataset.block || "";
+    setSelectedBlock(draggedBlock);
     event.dataTransfer?.setData("text/plain", draggedBlock);
     event.dataTransfer.effectAllowed = "copy";
   });
 });
 
+const appendBlockToZone = (dropzone, label) => {
+  if (!label) {
+    summary.textContent = "Select a block first, then add it to a stage.";
+    return;
+  }
+
+  dropzone.append(createWorkflowBlock(label));
+  updateSummary();
+};
+
 dropzones.forEach((dropzone) => {
+  const lane = dropzone.closest(".lane");
+  const laneAction = lane?.querySelector(".lane-action");
+
+  laneAction?.addEventListener("click", () => {
+    appendBlockToZone(dropzone, selectedBlock);
+  });
+
   dropzone.addEventListener("dragover", (event) => {
     event.preventDefault();
     dropzone.classList.add("is-active");
@@ -73,12 +106,7 @@ dropzones.forEach((dropzone) => {
     dropzone.classList.remove("is-active");
     const label = event.dataTransfer?.getData("text/plain") || draggedBlock;
 
-    if (!label) {
-      return;
-    }
-
-    dropzone.append(createWorkflowBlock(label));
-    updateSummary();
+    appendBlockToZone(dropzone, label);
   });
 });
 
@@ -86,6 +114,7 @@ summarizeButton.addEventListener("click", updateSummary);
 
 resetButton.addEventListener("click", () => {
   document.querySelectorAll(".workflow-block").forEach((block) => block.remove());
+  setSelectedBlock("");
   updateSummary();
 });
 

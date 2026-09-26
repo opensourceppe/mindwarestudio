@@ -41,32 +41,36 @@
         <div class="studio-grid">
           <aside class="palette">
             <h3>Block palette</h3>
-            <p>Drag any block into a workflow stage.</p>
+            <p>Drag any block into a workflow stage, or select one and use the stage controls.</p>
             <div class="block-list">
-              <button class="block" draggable="true" data-block="Dataset">Dataset</button>
-              <button class="block" draggable="true" data-block="Clean Data">Clean Data</button>
-              <button class="block" draggable="true" data-block="Feature Builder">Feature Builder</button>
-              <button class="block" draggable="true" data-block="Train Model">Train Model</button>
-              <button class="block" draggable="true" data-block="Evaluate">Evaluate</button>
-              <button class="block" draggable="true" data-block="Deploy">Deploy</button>
+              <button class="block" draggable="true" data-block="Dataset" aria-pressed="false">Dataset</button>
+              <button class="block" draggable="true" data-block="Clean Data" aria-pressed="false">Clean Data</button>
+              <button class="block" draggable="true" data-block="Feature Builder" aria-pressed="false">Feature Builder</button>
+              <button class="block" draggable="true" data-block="Train Model" aria-pressed="false">Train Model</button>
+              <button class="block" draggable="true" data-block="Evaluate" aria-pressed="false">Evaluate</button>
+              <button class="block" draggable="true" data-block="Deploy" aria-pressed="false">Deploy</button>
             </div>
           </aside>
 
           <div class="workflow">
             <div class="lane" data-stage="Ingest">
               <h3>Ingest</h3>
+              <button class="lane-action" type="button">Add selected block</button>
               <div class="dropzone" aria-label="Ingest stage"></div>
             </div>
             <div class="lane" data-stage="Transform">
               <h3>Transform</h3>
+              <button class="lane-action" type="button">Add selected block</button>
               <div class="dropzone" aria-label="Transform stage"></div>
             </div>
             <div class="lane" data-stage="Model">
               <h3>Model</h3>
+              <button class="lane-action" type="button">Add selected block</button>
               <div class="dropzone" aria-label="Model stage"></div>
             </div>
             <div class="lane" data-stage="Ship">
               <h3>Ship</h3>
+              <button class="lane-action" type="button">Add selected block</button>
               <div class="dropzone" aria-label="Ship stage"></div>
             </div>
           </div>
@@ -88,7 +92,7 @@
 
         <div class="vr-layout">
           <div class="vr-scene-shell">
-            <div id="vr-scene" class="vr-scene" aria-label="Spatial workflow preview">
+            <div id="vr-scene" class="vr-scene" role="img" aria-describedby="vr-scene-description" tabindex="0">
               <div class="vr-card depth-1">Dataset Hub</div>
               <div class="vr-card depth-2">Feature Forge</div>
               <div class="vr-card depth-3">Model Arena</div>
@@ -97,7 +101,7 @@
           </div>
 
           <div class="vr-copy">
-            <p>
+            <p id="vr-scene-description">
               Move your pointer over the scene to inspect a desktop-friendly spatial
               preview. On XR-capable devices, MindWare Studio can detect WebXR
               immersive VR support and use that as the next step for a deeper

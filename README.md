@@ -14,7 +14,7 @@ Because the reboot prototype is a static web app, you can preview it locally wit
 any simple file server. For example:
 
 ```bash
-cd /home/runner/work/mindwarestudio/mindwarestudio
+cd mindwarestudio
 python3 -m http.server 4173
 ```
 
@@ -25,8 +25,9 @@ Then open <http://127.0.0.1:4173>.
 ### Drag-and-drop pipeline studio
 
 The home page includes a block palette and workflow stages. Drag a block from the
-palette into a stage to sketch a pipeline, then use the "Summarize pipeline" action
-to review the flow you assembled.
+palette into a stage to sketch a pipeline, or select a block and use each stage's
+"Add selected block" control for keyboard-friendly editing. Then use the
+"Summarize pipeline" action to review the flow you assembled.
 
 ### VR lab
 
