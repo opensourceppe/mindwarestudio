@@ -154,6 +154,7 @@ summarizeButton.addEventListener("click", updateSummary);
 
 resetButton.addEventListener("click", () => {
   document.querySelectorAll(".workflow-block").forEach((block) => block.remove());
+  draggedBlock = "";
   setSelectedBlock("");
   updateSummary();
 });
