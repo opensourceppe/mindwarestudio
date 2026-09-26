@@ -26,8 +26,9 @@ Then open <http://127.0.0.1:4173>.
 
 The home page includes a block palette and workflow stages. Drag a block from the
 palette into a stage to sketch a pipeline, or select a block and use each stage's
-"Add selected block" control for keyboard-friendly editing. Then use the
-"Summarize pipeline" action to review the flow you assembled.
+"Add selected block" control for keyboard-friendly editing. The pipeline summary
+updates automatically as you add, move, remove, or reset blocks, and the
+"Summarize pipeline" action remains available as an explicit refresh control.
 
 ### VR lab
 

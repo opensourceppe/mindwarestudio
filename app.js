@@ -11,6 +11,12 @@ const emptySummaryText =
 let selectedBlock = "";
 
 let draggedBlock = "";
+const vrRotation = { rx: -12, ry: 18 };
+
+const applyVrRotation = () => {
+  vrScene.style.setProperty("--rx", `${vrRotation.rx}deg`);
+  vrScene.style.setProperty("--ry", `${vrRotation.ry}deg`);
+};
 
 const setSelectedBlock = (label) => {
   selectedBlock = label;
@@ -176,11 +182,39 @@ vrScene.addEventListener("pointermove", (event) => {
   const x = (event.clientX - bounds.left) / bounds.width - 0.5;
   const y = (event.clientY - bounds.top) / bounds.height - 0.5;
 
-  vrScene.style.setProperty("--rx", `${-12 - y * 18}deg`);
-  vrScene.style.setProperty("--ry", `${18 + x * 28}deg`);
+  vrRotation.rx = -12 - y * 18;
+  vrRotation.ry = 18 + x * 28;
+  applyVrRotation();
 });
 
 vrScene.addEventListener("pointerleave", () => {
-  vrScene.style.setProperty("--rx", "-12deg");
-  vrScene.style.setProperty("--ry", "18deg");
+  vrRotation.rx = -12;
+  vrRotation.ry = 18;
+  applyVrRotation();
+});
+
+vrScene.addEventListener("keydown", (event) => {
+  switch (event.key) {
+    case "ArrowUp":
+      vrRotation.rx -= 6;
+      break;
+    case "ArrowDown":
+      vrRotation.rx += 6;
+      break;
+    case "ArrowLeft":
+      vrRotation.ry -= 6;
+      break;
+    case "ArrowRight":
+      vrRotation.ry += 6;
+      break;
+    case "Home":
+      vrRotation.rx = -12;
+      vrRotation.ry = 18;
+      break;
+    default:
+      return;
+  }
+
+  event.preventDefault();
+  applyVrRotation();
 });
