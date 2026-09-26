@@ -6,6 +6,8 @@ const resetButton = document.getElementById("reset-button");
 const vrCheckButton = document.getElementById("vr-check-button");
 const vrStatus = document.getElementById("vr-status");
 const vrScene = document.getElementById("vr-scene");
+const emptySummaryText =
+  "Start by dragging a block into the workflow, or select one and use a stage's Add selected block button.";
 let selectedBlock = "";
 
 let draggedBlock = "";
@@ -29,7 +31,7 @@ const updateSummary = () => {
   const populatedStages = stages.filter(({ blocks }) => blocks.length);
 
   if (!populatedStages.length) {
-    summary.textContent = "Start by dragging a block into the workflow.";
+    summary.textContent = emptySummaryText;
     return;
   }
 
@@ -131,7 +133,9 @@ vrCheckButton.addEventListener("click", async () => {
       ? "WebXR immersive VR is available on this device. The reboot can grow into a full headset mode from this entry point."
       : "WebXR is present, but immersive VR is not available right now. You can still use the desktop spatial preview.";
   } catch (error) {
-    vrStatus.textContent = `WebXR readiness check failed: ${error instanceof Error ? error.message : "Unknown error"}.`;
+    console.error("WebXR readiness check failed.", error);
+    vrStatus.textContent =
+      "WebXR readiness could not be determined in this browser. You can still use the desktop spatial preview.";
   }
 });
 
